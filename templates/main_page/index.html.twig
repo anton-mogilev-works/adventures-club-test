@@ -2,8 +2,43 @@
 <html>
     <head>
         <title>Калькулятор - тестовое задание</title>
+        <style>
+            .form-block {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                
+                margin: 10px;
+
+            }
+
+            .form-block .help-text {
+                color: green;                
+            }
+
+            #calculation {
+                display: flex;
+                
+            }
+
+            
+        </style>
     </head>
     <body>
         <h1>Калькулятор</h1>
+
+        {% if form is defined %}
+        {{ form(form) }}
+        {% endif %}
+
+        {% if result is defined %}
+        <div class="result">
+        </div>
+        {% endif %}
+
+        {% if queue is defined %}
+        <div class="queue">
+        </div>
+        {% endif %}
     </body>
 </html>

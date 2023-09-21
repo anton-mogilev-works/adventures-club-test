@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\CalculationRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CalculationRepository::class)]
@@ -18,6 +20,8 @@ class Calculation
     private ?float $value_1 = null;
 
     #[ORM\Column(length: 1)]
+    #[Assert\Choice(['+', '-', '*', '/'])]
+    #[Assert\NotNull]
     private ?string $mathematical_action = null;
 
     #[ORM\Column]
@@ -31,6 +35,30 @@ class Calculation
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
+
+    public function __construct()
+    {
+        $this->created_at = new DateTime();
+        $this->updated_at = new DateTime();
+    }
+
+    public function calculate()
+    {
+        switch ($this->mathematical_action) {
+            case '+':
+                $this->result = $this->value_1 + $this->value_2;
+                break;
+            case '-':
+                $this->result = $this->value_1 - $this->value_2;
+                break;
+            case '*':
+                $this->result = $this->value_1 * $this->value_2;
+                break;
+            case '/':
+                $this->result = $this->value_1 / $this->value_2;
+                break;
+        }
+    }
 
     public function getId(): ?int
     {
