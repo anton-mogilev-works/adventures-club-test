@@ -42,7 +42,7 @@ class Calculation
         $this->updated_at = new DateTime();
     }
 
-    public function calculate()
+    public function calculate(): void
     {
         switch ($this->mathematical_action) {
             case '+':
@@ -58,6 +58,11 @@ class Calculation
                 $this->result = $this->value_1 / $this->value_2;
                 break;
         }
+    }
+
+    public function getAnswer(): string
+    {
+        return $this->value_1 . " " . $this->mathematical_action . " " . $this->value_2 . " = " . $this->result;
     }
 
     public function getId(): ?int

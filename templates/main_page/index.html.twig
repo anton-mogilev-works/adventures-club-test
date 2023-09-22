@@ -2,22 +2,132 @@
 <html>
     <head>
         <title>Калькулятор - тестовое задание</title>
+        <link rel="stylesheet" href="/css/fonts.css">
         <style>
+            html {
+                font: normal normal 15px/normal Roboto, sans-serif;
+
+            }
+
+            body {
+                margin: 0 auto;
+                padding: 0;
+                width: 780px;
+                background-color: #E0FFFF;
+
+            }
+
+            h1 {
+                margin-top: 0;
+            }
+
+            .container {
+                background-color: #FFFAFA;
+                height: 100%;
+                margin: 0;
+                padding: 10px;
+            }
+            
             .form-block {
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
                 
-                margin: 10px;
-
+                margin: 5px;
             }
 
+            .form-block input[type="text"] {
+                width: 150px;
+                height: 30px;
+                font-size: 15px;
+                margin-top: 10px;
+                border-radius: 4px;
+                border: 2px solid #ced4da;                
+            }
+
+            .form-block select {
+                width: 150px;
+                height: 36px;
+                /* font-size: 25px; */
+                margin-top: 10px;
+                border-radius: 4px;
+                border: 2px solid #ced4da;
+                background-color: #FFFAFA;
+            }
+
+            .form-block button.blue {
+                height: 36px;
+                background-color: #236efd;
+                color: #FFFAFA;
+                border: none;
+                border-radius: 4px;
+                font-size: 15px;
+                font-weight: bold;
+                cursor: pointer;
+                padding: 0 20px;
+            }
+
+            .form-block ul {
+                margin: 5px 0;
+                width: 150px;
+                padding: 0;
+                color: red;
+            }
+
+            .form-block ul li {
+                list-style-type:  none;
+            }
+
+            .form-block button.green {
+                height: 36px;
+                background-color: #008000;
+                color: #FFFAFA;
+                border: none;
+                border-radius: 4px;
+                font-size: 15px;
+                font-weight: bold;
+                cursor: pointer;
+                padding: 0 20px;
+
+            }
             .form-block .help-text {
                 color: green;                
             }
 
+            .answer {
+                border-radius: 4px;
+                padding: 10px;
+                background-color: #d1e7dd;
+                color: #20593d;
+                font-weight: bold;
+                margin: 5px;
+                width: 
+
+            }
+
+            .queue {
+                margin-top: 15px;
+            }
+
+            .queue h3{
+                margin: 5px;
+            }
+
+            .queue table td, th{
+                padding: 5px;
+            }
+            
+            .queue table td a {
+                text-decoration: none;
+            }
+
+            .queue table td a:hover {
+                color: red;
+            }
+
             #calculation {
                 display: flex;
+                justify-content: space-between;
                 
             }
 
@@ -25,20 +135,38 @@
         </style>
     </head>
     <body>
-        <h1>Калькулятор</h1>
+        <div class="container">
+            <h1>Калькулятор</h1>
 
-        {% if form is defined %}
-        {{ form(form) }}
-        {% endif %}
+            {% if form is defined %}
+            {{ form(form) }}
+            {% endif %}
 
-        {% if result is defined %}
-        <div class="result">
+            {% if answer is defined %}
+            <div class="answer">
+            {{ answer}}
+            </div>
+            {% endif %}
+
+            {% if queue is defined %}
+            <div class="queue">
+            <h3>Очередь:</h3>
+            <table>
+                <tr>
+                    <th>Id</th>                
+                    <th>Выражение</th>
+                    <th>Действие</th>
+                </tr>
+                {% for calculation in queue %}
+                <tr>
+                    <td>{{ calculation.getId() }}</td>
+                    <td>{{ calculation.getValue1() }} {{calculation.getMathematicalAction() }} {{ calculation.getValue2() }}</td>
+                    <td><a href="/{{ calculation.getId() }}">Вычислить</a></td>              
+                </tr>
+                {% endfor %}
+            </table>        
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-
-        {% if queue is defined %}
-        <div class="queue">
-        </div>
-        {% endif %}
     </body>
 </html>

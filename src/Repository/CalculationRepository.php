@@ -21,28 +21,13 @@ class CalculationRepository extends ServiceEntityRepository
         parent::__construct($registry, Calculation::class);
     }
 
-//    /**
-//     * @return Calculation[] Returns an array of Calculation objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getQueue() : array {
+        return $this->createQueryBuilder('c')
+                   ->andWhere('c.result IS NULL')                
+                   ->orderBy('c.id', 'DESC')                   
+                   ->getQuery()
+                   ->getResult()
+               ;
+    }
 
-//    public function findOneBySomeField($value): ?Calculation
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

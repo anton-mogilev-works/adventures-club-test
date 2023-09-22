@@ -21,7 +21,7 @@ class CalculationType extends AbstractType
         //Валидатор для обоих аргументов
         $assertValueCallback = function(mixed $value, ExecutionContextInterface $context) : void {
             if(is_numeric($value) == false) {
-                $context->buildViolation('Поле должно содержать только число')                    
+                $context->buildViolation('Поле должно содержать только число и не должно быть пустым')                    
                     ->addViolation();
             }
         };
@@ -74,14 +74,20 @@ class CalculationType extends AbstractType
             ->add('calculate', SubmitType::class, [
                 'label' => 'Вычислить',
                 'row_attr' => [
-                    'class' => 'form-block'
+                    'class' => 'form-block '
                 ],
+                'attr' => [
+                    'class' => 'blue'
+                ]
             ])
             ->add('in_queue', SubmitType::class, [
                 'label' => 'В очередь',
                 'row_attr' => [
-                    'class' => 'form-block'
+                    'class' => 'form-block '
                 ],
+                'attr' => [
+                    'class' => 'green'
+                ]
             ])
             ;
 
